@@ -25,7 +25,7 @@
         {
             this.InitializeComponent();
             this.Font = SystemFonts.MessageBoxFont;
-            this.ShowIcon = false;
+            this.Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
         }
 
         /// <summary>
