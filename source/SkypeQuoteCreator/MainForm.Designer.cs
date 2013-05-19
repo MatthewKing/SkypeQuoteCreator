@@ -30,12 +30,12 @@
         {
             this.uxNameLabel = new System.Windows.Forms.Label();
             this.uxMessageLabel = new System.Windows.Forms.Label();
-            this.uxName = new System.Windows.Forms.TextBox();
             this.uxMessage = new System.Windows.Forms.TextBox();
             this.uxTimestamp = new System.Windows.Forms.MaskedTextBox();
             this.uxTimestampLabel = new System.Windows.Forms.Label();
             this.uxCopyToClipboard = new System.Windows.Forms.Button();
             this.uxUseCurrentDate = new System.Windows.Forms.Button();
+            this.uxName = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // uxNameLabel
@@ -55,15 +55,6 @@
             this.uxMessageLabel.Size = new System.Drawing.Size(53, 13);
             this.uxMessageLabel.TabIndex = 7;
             this.uxMessageLabel.Text = "Message:";
-            // 
-            // uxName
-            // 
-            this.uxName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.uxName.Location = new System.Drawing.Point(79, 12);
-            this.uxName.Name = "uxName";
-            this.uxName.Size = new System.Drawing.Size(271, 20);
-            this.uxName.TabIndex = 0;
             // 
             // uxMessage
             // 
@@ -117,17 +108,28 @@
             this.uxUseCurrentDate.UseVisualStyleBackColor = true;
             this.uxUseCurrentDate.Click += new System.EventHandler(this.uxUseCurrentDate_Click);
             // 
+            // uxName
+            // 
+            this.uxName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.uxName.FormattingEnabled = true;
+            this.uxName.Location = new System.Drawing.Point(79, 11);
+            this.uxName.Name = "uxName";
+            this.uxName.Size = new System.Drawing.Size(271, 21);
+            this.uxName.Sorted = true;
+            this.uxName.TabIndex = 0;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(362, 223);
+            this.Controls.Add(this.uxName);
             this.Controls.Add(this.uxUseCurrentDate);
             this.Controls.Add(this.uxCopyToClipboard);
             this.Controls.Add(this.uxTimestampLabel);
             this.Controls.Add(this.uxTimestamp);
             this.Controls.Add(this.uxMessage);
-            this.Controls.Add(this.uxName);
             this.Controls.Add(this.uxMessageLabel);
             this.Controls.Add(this.uxNameLabel);
             this.Name = "MainForm";
@@ -142,12 +144,12 @@
 
         private System.Windows.Forms.Label uxNameLabel;
         private System.Windows.Forms.Label uxMessageLabel;
-        private System.Windows.Forms.TextBox uxName;
         private System.Windows.Forms.TextBox uxMessage;
         private System.Windows.Forms.MaskedTextBox uxTimestamp;
         private System.Windows.Forms.Label uxTimestampLabel;
         private System.Windows.Forms.Button uxCopyToClipboard;
         private System.Windows.Forms.Button uxUseCurrentDate;
+        private System.Windows.Forms.ComboBox uxName;
 
     }
 }

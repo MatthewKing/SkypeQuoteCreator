@@ -1,11 +1,13 @@
 ﻿namespace SkypeQuoteCreator
 {
     using System;
+    using System.Collections.Specialized;
     using System.Drawing;
     using System.Globalization;
     using System.IO;
     using System.Text;
     using System.Windows.Forms;
+    using Settings = Properties.Settings;
 
     /// <summary>
     /// Main form for the application.
@@ -35,7 +37,13 @@
         /// <param name="e">An EventArgs that contains no event data.</param>
         private void MainForm_Load(object sender, EventArgs e)
         {
+            if (Settings.Default.NameHistory == null)
+            {
+                Settings.Default.NameHistory = new StringCollection();
+            }
+
             this.UseCurrentDate();
+            this.UseCachedNames();
         }
 
         /// <summary>
@@ -55,7 +63,36 @@
         /// <param name="e">An EventArgs that contains no event data.</param>
         private void uxCopyToClipboard_Click(object sender, EventArgs e)
         {
+            this.SaveCurrentNameToCache();
+            this.UseCachedNames();
             this.SaveToClipboard();
+        }
+
+        /// <summary>
+        /// Saves the current name to the name cache.
+        /// </summary>
+        private void SaveCurrentNameToCache()
+        {
+            string name = this.uxName.Text;
+
+            if (!Settings.Default.NameHistory.Contains(name))
+            {
+                Settings.Default.NameHistory.Add(name);
+                Settings.Default.Save();
+            }
+        }
+
+        /// <summary>
+        /// Populates the items in uxName with the saved names.
+        /// </summary>
+        private void UseCachedNames()
+        {
+            this.uxName.Items.Clear();
+
+            foreach (string name in Settings.Default.NameHistory)
+            {
+                this.uxName.Items.Add(name);
+            }
         }
 
         /// <summary>
