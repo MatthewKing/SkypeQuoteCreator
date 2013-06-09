@@ -24,6 +24,7 @@
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <InstallUrl>http://mking.s3.amazonaws.com/</InstallUrl>
+    <UpdateUrl>http://mking.s3.amazonaws.com/</UpdateUrl>
     <ProductName>Skype Quote Creator</ProductName>
     <PublisherName>MKing</PublisherName>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
