@@ -36,6 +36,7 @@
             this.uxCopyToClipboard = new System.Windows.Forms.Button();
             this.uxUseCurrentDate = new System.Windows.Forms.Button();
             this.uxName = new System.Windows.Forms.ComboBox();
+            this.uxUpdate = new System.Windows.Forms.LinkLabel();
             this.SuspendLayout();
             // 
             // uxNameLabel
@@ -119,11 +120,23 @@
             this.uxName.Sorted = true;
             this.uxName.TabIndex = 0;
             // 
+            // uxUpdate
+            // 
+            this.uxUpdate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.uxUpdate.AutoSize = true;
+            this.uxUpdate.Location = new System.Drawing.Point(12, 193);
+            this.uxUpdate.Name = "uxUpdate";
+            this.uxUpdate.Size = new System.Drawing.Size(0, 13);
+            this.uxUpdate.TabIndex = 8;
+            this.uxUpdate.Visible = false;
+            this.uxUpdate.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.uxUpdate_LinkClicked);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(362, 223);
+            this.Controls.Add(this.uxUpdate);
             this.Controls.Add(this.uxName);
             this.Controls.Add(this.uxUseCurrentDate);
             this.Controls.Add(this.uxCopyToClipboard);
@@ -150,6 +163,7 @@
         private System.Windows.Forms.Button uxCopyToClipboard;
         private System.Windows.Forms.Button uxUseCurrentDate;
         private System.Windows.Forms.ComboBox uxName;
+        private System.Windows.Forms.LinkLabel uxUpdate;
 
     }
 }

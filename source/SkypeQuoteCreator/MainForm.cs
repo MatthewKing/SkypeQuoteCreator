@@ -2,6 +2,8 @@
 {
     using System;
     using System.Collections.Specialized;
+    using System.ComponentModel;
+    using System.Deployment.Application;
     using System.Drawing;
     using System.Globalization;
     using System.IO;
@@ -44,6 +46,80 @@
 
             this.UseCurrentDate();
             this.UseCachedNames();
+            this.CheckForUpdates();
+        }
+
+        /// <summary>
+        /// Checks for any ClickOnce updates.
+        /// </summary>
+        private void CheckForUpdates()
+        {
+            if (ApplicationDeployment.IsNetworkDeployed)
+            {
+                ApplicationDeployment deployment = ApplicationDeployment.CurrentDeployment;
+                deployment.CheckForUpdateCompleted += this.CheckForUpdateCompleted;
+                deployment.UpdateProgressChanged += this.UpdateProgressChanged;
+                deployment.UpdateCompleted += this.UpdateCompleted;
+
+                try
+                {
+                    deployment.CheckForUpdateAsync();
+                }
+                catch (Exception ex)
+                {
+                    if (ex is InvalidOperationException ||
+                        ex is InvalidDeploymentException ||
+                        ex is DeploymentDownloadException)
+                    {
+                        // Swallow.
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Handles the CheckForUpdateCompleted event.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">A CheckForUpdateCompletedEventArgs that contains the event data.</param>
+        private void CheckForUpdateCompleted(object sender, CheckForUpdateCompletedEventArgs e)
+        {
+            if (ApplicationDeployment.IsNetworkDeployed)
+            {
+                if (e.UpdateAvailable)
+                {
+                    this.uxUpdate.Text = "Update available.";
+                    this.uxUpdate.Visible = true;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Handles the UpdateProgressChanged event.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">A DeploymentProgressChangedEventArgs that contains the event data.</param>
+        private void UpdateProgressChanged(object sender, DeploymentProgressChangedEventArgs e)
+        {
+            this.uxUpdate.Text = String.Format(
+                "{0:D}K out of {1:D}K downloaded - {2:D}% complete",
+                e.BytesCompleted / 1024,
+                e.BytesTotal / 1024,
+                e.ProgressPercentage);
+        }
+
+        /// <summary>
+        /// Handles the UpdateCompleted event.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">A AsyncCompletedEventArgs that contains the event data.</param>
+        private void UpdateCompleted(object sender, AsyncCompletedEventArgs e)
+        {
+            this.uxUpdate.Text = "Update will be applied next time program runs.";
         }
 
         /// <summary>
@@ -66,6 +142,21 @@
             this.SaveCurrentNameToCache();
             this.UseCachedNames();
             this.SaveToClipboard();
+        }
+
+        /// <summary>
+        /// Handles the LinkClicked event for uxUpdate.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">An LinkLabelLinkClickedEventArgs that contains the event data.</param>
+        private void uxUpdate_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            this.uxUpdate.Enabled = false;
+            if (ApplicationDeployment.IsNetworkDeployed)
+            {
+                ApplicationDeployment deployment = ApplicationDeployment.CurrentDeployment;
+                deployment.UpdateAsync();
+            }
         }
 
         /// <summary>
