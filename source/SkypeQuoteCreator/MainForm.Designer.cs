@@ -65,7 +65,7 @@
             this.uxMessage.Location = new System.Drawing.Point(79, 67);
             this.uxMessage.Multiline = true;
             this.uxMessage.Name = "uxMessage";
-            this.uxMessage.Size = new System.Drawing.Size(271, 118);
+            this.uxMessage.Size = new System.Drawing.Size(293, 57);
             this.uxMessage.TabIndex = 3;
             // 
             // uxTimestamp
@@ -75,7 +75,7 @@
             this.uxTimestamp.Location = new System.Drawing.Point(79, 40);
             this.uxTimestamp.Mask = "0000-00-00 00:00:00";
             this.uxTimestamp.Name = "uxTimestamp";
-            this.uxTimestamp.Size = new System.Drawing.Size(156, 20);
+            this.uxTimestamp.Size = new System.Drawing.Size(196, 20);
             this.uxTimestamp.TabIndex = 1;
             // 
             // uxTimestampLabel
@@ -90,7 +90,7 @@
             // uxCopyToClipboard
             // 
             this.uxCopyToClipboard.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.uxCopyToClipboard.Location = new System.Drawing.Point(234, 188);
+            this.uxCopyToClipboard.Location = new System.Drawing.Point(256, 127);
             this.uxCopyToClipboard.Name = "uxCopyToClipboard";
             this.uxCopyToClipboard.Size = new System.Drawing.Size(116, 23);
             this.uxCopyToClipboard.TabIndex = 4;
@@ -101,9 +101,9 @@
             // uxUseCurrentDate
             // 
             this.uxUseCurrentDate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.uxUseCurrentDate.Location = new System.Drawing.Point(241, 38);
+            this.uxUseCurrentDate.Location = new System.Drawing.Point(281, 38);
             this.uxUseCurrentDate.Name = "uxUseCurrentDate";
-            this.uxUseCurrentDate.Size = new System.Drawing.Size(109, 23);
+            this.uxUseCurrentDate.Size = new System.Drawing.Size(91, 23);
             this.uxUseCurrentDate.TabIndex = 2;
             this.uxUseCurrentDate.Text = "Use current";
             this.uxUseCurrentDate.UseVisualStyleBackColor = true;
@@ -116,7 +116,7 @@
             this.uxName.FormattingEnabled = true;
             this.uxName.Location = new System.Drawing.Point(79, 11);
             this.uxName.Name = "uxName";
-            this.uxName.Size = new System.Drawing.Size(271, 21);
+            this.uxName.Size = new System.Drawing.Size(293, 21);
             this.uxName.Sorted = true;
             this.uxName.TabIndex = 0;
             // 
@@ -124,7 +124,7 @@
             // 
             this.uxUpdate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.uxUpdate.AutoSize = true;
-            this.uxUpdate.Location = new System.Drawing.Point(12, 193);
+            this.uxUpdate.Location = new System.Drawing.Point(12, 132);
             this.uxUpdate.Name = "uxUpdate";
             this.uxUpdate.Size = new System.Drawing.Size(0, 13);
             this.uxUpdate.TabIndex = 8;
@@ -135,7 +135,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(362, 223);
+            this.ClientSize = new System.Drawing.Size(384, 162);
             this.Controls.Add(this.uxUpdate);
             this.Controls.Add(this.uxName);
             this.Controls.Add(this.uxUseCurrentDate);
@@ -145,6 +145,7 @@
             this.Controls.Add(this.uxMessage);
             this.Controls.Add(this.uxMessageLabel);
             this.Controls.Add(this.uxNameLabel);
+            this.MinimumSize = new System.Drawing.Size(400, 200);
             this.Name = "MainForm";
             this.Text = "Skype Quote Creator";
             this.Load += new System.EventHandler(this.MainForm_Load);
