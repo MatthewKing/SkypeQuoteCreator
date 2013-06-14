@@ -5,7 +5,7 @@
 # build results
 [Dd]ebug/
 [Rr]elease/
-build/publish/
+publish/
 
 # user-specific files
 *.suo
