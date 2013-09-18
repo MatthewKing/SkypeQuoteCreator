@@ -116,7 +116,7 @@
         /// Handles the UpdateCompleted event.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">A AsyncCompletedEventArgs that contains the event data.</param>
+        /// <param name="e">An AsyncCompletedEventArgs that contains the event data.</param>
         private void UpdateCompleted(object sender, AsyncCompletedEventArgs e)
         {
             this.uxUpdate.Text = "Update will be applied next time program runs.";
@@ -148,7 +148,7 @@
         /// Handles the LinkClicked event for uxUpdate.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">An LinkLabelLinkClickedEventArgs that contains the event data.</param>
+        /// <param name="e">A LinkLabelLinkClickedEventArgs that contains the event data.</param>
         private void uxUpdate_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             this.uxUpdate.Enabled = false;
