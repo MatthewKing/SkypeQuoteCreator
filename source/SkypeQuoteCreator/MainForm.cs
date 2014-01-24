@@ -42,11 +42,20 @@
             if (Settings.Default.NameHistory == null)
             {
                 Settings.Default.NameHistory = new StringCollection();
+                Settings.Default.Save();
+            }
+
+            if (String.IsNullOrEmpty(Settings.Default.UserId))
+            {
+                Settings.Default.UserId = Guid.NewGuid().ToString();
+                Settings.Default.Save();
             }
 
             this.UseCurrentDate();
             this.UseCachedNames();
             this.CheckForUpdates();
+
+            Analytics.TrackScreenView("Main", Settings.Default.UserId);
         }
 
         /// <summary>
