@@ -221,7 +221,7 @@
             string message = this.uxMessage.Text;
 
             string skypeMessageFragment = String.Format(
-                "<quote author=\"{0}\" timestamp=\"{1}\">{2}</quote>",
+                "<quote authorname=\"{0}\" timestamp=\"{1}\">{2}</quote>",
                 user,
                 (dateTime.ToUniversalTime() - epoch).TotalSeconds,
                 message);
