@@ -7,7 +7,6 @@ using System.Globalization;
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
-using Settings = SkypeQuoteCreator.Properties.Settings;
 
 namespace SkypeQuoteCreator
 {
@@ -39,11 +38,7 @@ namespace SkypeQuoteCreator
         /// <param name="e">An EventArgs that contains no event data.</param>
         private void MainForm_Load(object sender, EventArgs e)
         {
-            if (Settings.Default.NameHistory == null)
-            {
-                Settings.Default.NameHistory = new StringCollection();
-                Settings.Default.Save();
-            }
+            Settings.Default.Load();
 
             if (String.IsNullOrEmpty(Settings.Default.UserId))
             {
