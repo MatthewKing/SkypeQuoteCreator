@@ -1,7 +1,7 @@
 ﻿[assembly: System.Reflection.AssemblyTitle("Skype Quote Creator")]
 [assembly: System.Reflection.AssemblyCompany("Matthew King")]
 [assembly: System.Reflection.AssemblyProduct("SkypeQuoteCreator")]
-[assembly: System.Reflection.AssemblyCopyright("Copyright © Matthew King 2013")]
+[assembly: System.Reflection.AssemblyCopyright("Copyright © Matthew King 2013-2016")]
 
 [assembly: System.Runtime.InteropServices.ComVisible(false)]
 [assembly: System.Runtime.InteropServices.Guid("3390defc-1f8d-4166-8e29-2aa1b29d1e06")]

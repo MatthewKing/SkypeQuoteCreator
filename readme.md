@@ -29,7 +29,7 @@ A simple XML string in the following format: `<quote author="AuthorName" timesta
 
 Copyright
 ---------
-Copyright 2013 Matthew King.
+Copyright 2013-2016 Matthew King.
 
 License
 -------
