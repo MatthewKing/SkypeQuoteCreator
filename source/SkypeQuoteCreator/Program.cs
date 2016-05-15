@@ -1,8 +1,8 @@
-﻿namespace SkypeQuoteCreator
-{
-    using System;
-    using System.Windows.Forms;
+﻿using System;
+using System.Windows.Forms;
 
+namespace SkypeQuoteCreator
+{
     /// <summary>
     /// Contains the main entry point for the application.
     /// </summary>

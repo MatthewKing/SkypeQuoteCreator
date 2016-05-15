@@ -1,16 +1,16 @@
-﻿namespace SkypeQuoteCreator
-{
-    using System;
-    using System.Collections.Specialized;
-    using System.ComponentModel;
-    using System.Deployment.Application;
-    using System.Drawing;
-    using System.Globalization;
-    using System.IO;
-    using System.Text;
-    using System.Windows.Forms;
-    using Settings = Properties.Settings;
+﻿using System;
+using System.Collections.Specialized;
+using System.ComponentModel;
+using System.Deployment.Application;
+using System.Drawing;
+using System.Globalization;
+using System.IO;
+using System.Text;
+using System.Windows.Forms;
+using Settings = SkypeQuoteCreator.Properties.Settings;
 
+namespace SkypeQuoteCreator
+{
     /// <summary>
     /// Main form for the application.
     /// </summary>
@@ -27,9 +27,9 @@
         /// </summary>
         public MainForm()
         {
-            this.InitializeComponent();
-            this.Font = SystemFonts.MessageBoxFont;
-            this.Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
+            InitializeComponent();
+            Font = SystemFonts.MessageBoxFont;
+            Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
         }
 
         /// <summary>
@@ -51,9 +51,9 @@
                 Settings.Default.Save();
             }
 
-            this.UseCurrentDate();
-            this.UseCachedNames();
-            this.CheckForUpdates();
+            UseCurrentDate();
+            UseCachedNames();
+            CheckForUpdates();
 
             Analytics.TrackScreenView("Main", Settings.Default.UserId);
         }
@@ -66,9 +66,9 @@
             if (ApplicationDeployment.IsNetworkDeployed)
             {
                 ApplicationDeployment deployment = ApplicationDeployment.CurrentDeployment;
-                deployment.CheckForUpdateCompleted += this.CheckForUpdateCompleted;
-                deployment.UpdateProgressChanged += this.UpdateProgressChanged;
-                deployment.UpdateCompleted += this.UpdateCompleted;
+                deployment.CheckForUpdateCompleted += CheckForUpdateCompleted;
+                deployment.UpdateProgressChanged += UpdateProgressChanged;
+                deployment.UpdateCompleted += UpdateCompleted;
 
                 try
                 {
@@ -101,8 +101,8 @@
             {
                 if (e.UpdateAvailable)
                 {
-                    this.uxUpdate.Text = "Update available.";
-                    this.uxUpdate.Visible = true;
+                    uxUpdate.Text = "Update available.";
+                    uxUpdate.Visible = true;
                 }
             }
         }
@@ -114,7 +114,7 @@
         /// <param name="e">A DeploymentProgressChangedEventArgs that contains the event data.</param>
         private void UpdateProgressChanged(object sender, DeploymentProgressChangedEventArgs e)
         {
-            this.uxUpdate.Text = String.Format(
+            uxUpdate.Text = String.Format(
                 "{0:D}K out of {1:D}K downloaded - {2:D}% complete",
                 e.BytesCompleted / 1024,
                 e.BytesTotal / 1024,
@@ -128,7 +128,7 @@
         /// <param name="e">An AsyncCompletedEventArgs that contains the event data.</param>
         private void UpdateCompleted(object sender, AsyncCompletedEventArgs e)
         {
-            this.uxUpdate.Text = "Update will be applied next time program runs.";
+            uxUpdate.Text = "Update will be applied next time program runs.";
         }
 
         /// <summary>
@@ -138,7 +138,7 @@
         /// <param name="e">An EventArgs that contains no event data.</param>
         private void uxUseCurrentDate_Click(object sender, EventArgs e)
         {
-            this.UseCurrentDate();
+            UseCurrentDate();
         }
 
         /// <summary>
@@ -148,9 +148,9 @@
         /// <param name="e">An EventArgs that contains no event data.</param>
         private void uxCopyToClipboard_Click(object sender, EventArgs e)
         {
-            this.SaveCurrentNameToCache();
-            this.UseCachedNames();
-            this.SaveToClipboard();
+            SaveCurrentNameToCache();
+            UseCachedNames();
+            SaveToClipboard();
         }
 
         /// <summary>
@@ -160,7 +160,7 @@
         /// <param name="e">A LinkLabelLinkClickedEventArgs that contains the event data.</param>
         private void uxUpdate_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            this.uxUpdate.Enabled = false;
+            uxUpdate.Enabled = false;
             if (ApplicationDeployment.IsNetworkDeployed)
             {
                 ApplicationDeployment deployment = ApplicationDeployment.CurrentDeployment;
@@ -173,7 +173,7 @@
         /// </summary>
         private void SaveCurrentNameToCache()
         {
-            string name = this.uxName.Text;
+            string name = uxName.Text;
 
             if (!Settings.Default.NameHistory.Contains(name))
             {
@@ -187,11 +187,11 @@
         /// </summary>
         private void UseCachedNames()
         {
-            this.uxName.Items.Clear();
+            uxName.Items.Clear();
 
             foreach (string name in Settings.Default.NameHistory)
             {
-                this.uxName.Items.Add(name);
+                uxName.Items.Add(name);
             }
         }
 
@@ -200,7 +200,7 @@
         /// </summary>
         private void UseCurrentDate()
         {
-            this.uxTimestamp.Text = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+            uxTimestamp.Text = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
         }
 
         /// <summary>
@@ -214,11 +214,11 @@
             DateTime dateTime;
 
             // If the DateTime is invalid, we'll just stop right here.
-            if (!DateTime.TryParse(this.uxTimestamp.Text, out dateTime))
+            if (!DateTime.TryParse(uxTimestamp.Text, out dateTime))
                 return;
 
-            string user = this.uxName.Text;
-            string message = this.uxMessage.Text;
+            string user = uxName.Text;
+            string message = uxMessage.Text;
 
             string skypeMessageFragment = String.Format(
                 "<quote author=\"{0}\" authorname=\"{0}\" timestamp=\"{1}\">{2}</quote>",

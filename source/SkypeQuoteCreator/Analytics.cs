@@ -1,10 +1,10 @@
-﻿namespace SkypeQuoteCreator
-{
-    using System;
-    using System.Net;
-    using System.Text;
-    using System.Windows.Forms;
+﻿using System;
+using System.Net;
+using System.Text;
+using System.Windows.Forms;
 
+namespace SkypeQuoteCreator
+{
     /// <summary>
     /// Simple wrapper for keen.io Analytics.
     /// </summary>
