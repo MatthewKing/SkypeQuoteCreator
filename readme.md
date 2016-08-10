@@ -6,7 +6,12 @@ A simple WinForms app that allows the user to create a new quote in Skype's clip
 Get the application
 -------------------
 
-You can find the latest compiled version of this application at http://mking.s3.amazonaws.com/SkypeQuoteCreator.application
+You can download the application from the following sources:
+
+| Application                                                                 | Description                                |
+|-----------------------------------------------------------------------------|--------------------------------------------|
+| [Recommended](https://mking.s3.amazonaws.com/SkypeQuoteCreator.application) | ClickOnce installer with automatic updates |
+| [Stand-alone](https://mking.s3.amazonaws.com/SkypeQuoteCreator.exe)         | Stand-alone executable                     |
 
 Skype clipboard format
 ----------------------
