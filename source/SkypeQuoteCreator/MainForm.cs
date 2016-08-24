@@ -7,6 +7,8 @@ using System.Globalization;
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
+using System.Xml;
+using System.Xml.Linq;
 
 namespace SkypeQuoteCreator
 {
@@ -215,11 +217,15 @@ namespace SkypeQuoteCreator
             string user = uxName.Text;
             string message = uxMessage.Text;
 
-            string skypeMessageFragment = String.Format(
-                "<quote author=\"{0}\" authorname=\"{0}\" timestamp=\"{1}\">{2}</quote>",
-                user,
-                (dateTime.ToUniversalTime() - epoch).TotalSeconds,
-                message);
+            var xmlDoc = XDocument.Parse("<quote></quote>");
+
+            var root = xmlDoc.Root;
+            root.SetValue("message");
+            root.SetAttributeValue("author", user);
+            root.SetAttributeValue("authorname", user);
+            root.SetAttributeValue("timestamp", (dateTime.ToUniversalTime() - epoch).TotalSeconds);
+
+            var skypeMessageFragment = xmlDoc.ToString();
 
             IDataObject dataObject = new DataObject();
             dataObject.SetData("System.String", message);
