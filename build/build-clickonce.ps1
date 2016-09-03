@@ -24,8 +24,18 @@ if ((Test-Path -path ..\publish) -eq $false) {
 }
 $publish = Resolve-Path ..\publish
 
+# Generate the version number using the git commit timestamp
+$commitTimeUnix = git log -1 --format=%ct
+$unixEpochUtc = New-Object -TypeName System.DateTime -ArgumentList 1970, 1, 1, 0, 0, 0, 1
+$msbuildEpochUtc = New-Object -TypeName System.DateTime -ArgumentList 2000, 1, 1, 0, 0, 0, 1
+$commitTimeUtc = $unixEpochUtc.AddSeconds($commitTimeUnix)
+$daysPart = ($commitTimeUtc - $msbuildEpochUtc).Days
+$secondsPart = [System.Convert]::ToInt64($commitTimeUtc.TimeOfDay.TotalSeconds / 2);
+$version = "1.0.{0}.{1}" -f $daysPart, $secondsPart
+$versionUnderscore = $version -Replace "\.", "_"
+
 # Build from source
-MSBuild "/nologo" "/p:Configuration=Release,OutputPath=$temp" "..\source\SkypeQuoteCreator\SkypeQuoteCreator.csproj"
+MSBuild "/nologo" "/p:Configuration=Release,OutputPath=$temp,AssemblyVersion=$version,AssemblyFileVersion=$version,AssemblyInformationalVersion=$version" "..\source\SkypeQuoteCreator\SkypeQuoteCreator.csproj"
 
 # Bring the logo across, too; we need it for ClickOnce
 Copy-Item "..\source\SkypeQuoteCreator\Icon.ico" "$temp\Icon.ico"
@@ -33,10 +43,6 @@ Copy-Item "..\source\SkypeQuoteCreator\Icon.ico" "$temp\Icon.ico"
 # Get rid of unwanted output files
 Remove-Item $temp\* -include *.pdb,*.xml
 Remove-Item $temp\* -include *.application,*.manifest
-
-# Find the current version
-$version = [System.Diagnostics.FileVersionInfo]::GetVersionInfo("$temp\$assemblyName.exe").FileVersion
-$versionUnderscore = $version -Replace "\.", "_"
 
 # Create the relevant deploy directories, and copy the files there.
 $applicationFiles = Join-Path -Path $publish -ChildPath "Application Files"

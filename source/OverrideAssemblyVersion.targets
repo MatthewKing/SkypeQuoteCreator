@@ -1,0 +1,48 @@
+<!-- Originally taken from https://gist.github.com/jstangroome/1475490 -->
+<!-- Modified by Matthew King 2016 -->
+
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Target Name="OverrideAssemblyVersion"
+          BeforeTargets="CoreCompile">
+    <CallTarget Targets="CoreOverrideAssemblyVersion"
+                Condition=" '$(AssemblyVersion)'!='' or '$(AssemblyFileVersion)'!='' or '$(AssemblyInformationalVersion)'!='' " />
+  </Target>
+  <Target Name="CoreOverrideAssemblyVersion">
+    <PropertyGroup>
+      <VersionedAssemblyInfoPath>$(IntermediateOutputPath)\AssemblyInfo.override$(DefaultLanguageSourceExtension)</VersionedAssemblyInfoPath>
+      <AssemblyInfoRelativePath>Properties\AssemblyInfo$(DefaultLanguageSourceExtension)</AssemblyInfoRelativePath>
+      <AssemblyAttributePrefix>[assembly: </AssemblyAttributePrefix>
+      <AssemblyAttributeSuffix>]</AssemblyAttributeSuffix>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Language)'=='VB'">
+      <AssemblyInfoRelativePath>My Project\AssemblyInfo$(DefaultLanguageSourceExtension)</AssemblyInfoRelativePath>
+      <AssemblyAttributePrefix>&lt;Assembly:</AssemblyAttributePrefix>
+      <AssemblyAttributeSuffix>&gt;</AssemblyAttributeSuffix>
+    </PropertyGroup>
+    <Error Condition="'$(AssemblyVersion)'!='' and '$([System.Text.RegularExpressions.Regex]::IsMatch(&quot;$(AssemblyVersion)&quot;,&quot;^\d+\.\d+\.\d+\.\d+$&quot;))' == false"
+           Text="AssemblyVersion '$(AssemblyVersion)' must be of the form 'n.n.n.n' where 'n' is a positive integer."/>
+    <Message Text="Setting assembly version to '$(AssemblyVersion)'" Condition="'$(AssemblyVersion)'!=''"/>
+    <Message Text="Setting assembly file version to '$(AssemblyFileVersion)'" Condition="'$(AssemblyFileVersion)'!=''"/>
+    <Message Text="Setting assembly informational version to '$(AssemblyInformationalVersion)'" Condition="'$(AssemblyInformationalVersion)'!=''"/>
+    <ReadLinesFromFile File="$(AssemblyInfoRelativePath)">
+      <Output TaskParameter="Lines" ItemName="AssemblyInfoLines" />
+    </ReadLinesFromFile>
+    <ItemGroup>
+      <_AssemblyInfoLines_Pass1 Include="@(AssemblyInfoLines)" Condition="'$(AssemblyVersion)'=='' or '$([System.Text.RegularExpressions.Regex]::IsMatch(&quot;%(Identity)&quot;,&quot;(?i)AssemblyVersion&quot;))' == false" />
+      <_AssemblyInfoLines_Pass2 Include="@(_AssemblyInfoLines_Pass1)" Condition="'$(AssemblyFileVersion)'=='' or '$([System.Text.RegularExpressions.Regex]::IsMatch(&quot;%(Identity)&quot;,&quot;(?i)AssemblyFileVersion&quot;))' == false" />
+      <_AssemblyInfoLines_Pass3 Include="@(_AssemblyInfoLines_Pass2)" Condition="'$(AssemblyInformationalVersion)'=='' or '$([System.Text.RegularExpressions.Regex]::IsMatch(&quot;%(Identity)&quot;,&quot;(?i)AssemblyInformationalVersion&quot;))' == false" />
+      <NewAssemblyInfoLines Include="@(_AssemblyInfoLines_Pass3)" />
+      <NewAssemblyInfoLines Include="$(AssemblyAttributePrefix)System.Reflection.AssemblyVersion(&quot;$(AssemblyVersion)&quot;)$(AssemblyAttributeSuffix)" Condition="'$(AssemblyVersion)'!=''" />
+      <NewAssemblyInfoLines Include="$(AssemblyAttributePrefix)System.Reflection.AssemblyFileVersion(&quot;$(AssemblyFileVersion)&quot;)$(AssemblyAttributeSuffix)" Condition="'$(AssemblyFileVersion)'!=''" />
+      <NewAssemblyInfoLines Include="$(AssemblyAttributePrefix)System.Reflection.AssemblyInformationalVersion(&quot;$(AssemblyInformationalVersion)&quot;)$(AssemblyAttributeSuffix)" Condition="'$(AssemblyInformationalVersion)'!=''" />
+    </ItemGroup>
+    <WriteLinesToFile File="$(VersionedAssemblyInfoPath)"
+                      Lines="@(NewAssemblyInfoLines)"
+                      Overwrite="true" />
+    <ItemGroup>
+      <Compile Remove="$(AssemblyInfoRelativePath)" />
+      <Compile Include="$(VersionedAssemblyInfoPath)" />
+      <FileWrites Include="$(VersionedAssemblyInfoPath)" />
+    </ItemGroup>
+  </Target>
+</Project>
