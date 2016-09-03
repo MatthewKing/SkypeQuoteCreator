@@ -216,16 +216,12 @@ namespace SkypeQuoteCreator
 
             string user = uxName.Text;
             string message = uxMessage.Text;
-
-            var xmlDoc = XDocument.Parse("<quote></quote>");
-
-            var root = xmlDoc.Root;
-            root.SetValue("message");
-            root.SetAttributeValue("author", user);
-            root.SetAttributeValue("authorname", user);
-            root.SetAttributeValue("timestamp", (dateTime.ToUniversalTime() - epoch).TotalSeconds);
-
-            var skypeMessageFragment = xmlDoc.ToString();
+            string skypeMessageFragment = new XDocument(
+                new XElement("quote",
+                    new XAttribute("author", user),
+                    new XAttribute("authorname", user),
+                    new XAttribute("timestamp", (dateTime.ToUniversalTime() - epoch).TotalSeconds),
+                    message)).ToString();
 
             IDataObject dataObject = new DataObject();
             dataObject.SetData("System.String", message);
