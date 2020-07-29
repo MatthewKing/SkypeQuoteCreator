@@ -3,6 +3,11 @@ Skype Quote Creator
 
 A simple WinForms app that allows the user to create a new quote in Skype's clipboard format.
 
+Deprecation notice
+------------------
+
+Please note that this app is no longer actively maintained, and won't work with newer versions of Skype. Skype changed their quote system years ago, and this app does not support their new quote system. I'm no longer an active Skype user so I don't know the details of how the new quote system works. I'd be happy to accept a pull request from any community members who managed to work it out, though.
+
 Get the application
 -------------------
 
